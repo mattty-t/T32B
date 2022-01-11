@@ -3,10 +3,11 @@ import {
   CLEAR_ALERT,
   REGISTER_USER_BEGIN,
   REGISTER_USER_SUCCESS,
-  REGISTER_USER_ERROR,
+  //REGISTER_USER_ERROR,
   LOGIN_USER_BEGIN,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
+  TOGGLE_SIDEBAR
 } from './actions';
 
 const reducer = (state, action) => {
@@ -42,14 +43,10 @@ const reducer = (state, action) => {
       alertText: 'User Created! Redirecting...',
     };
   }
-  if (action.type === REGISTER_USER_ERROR) {
+  if (action.type === TOGGLE_SIDEBAR) {
     return {
       ...state,
-      isLoading: false,
-
-      showAlert: true,
-      alertType: 'danger',
-      alertText: action.payload.msg,
+      showSidebar: !state.showSidebar,
     };
   }
   if (action.type === LOGIN_USER_BEGIN) {
