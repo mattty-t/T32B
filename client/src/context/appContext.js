@@ -55,6 +55,7 @@ const AppProvider = ({ children }) => {
     localStorage.removeItem('user');
     localStorage.removeItem('location');
   };
+
   const registerUser = async (currentUser) => {
     dispatch({ type: REGISTER_USER_BEGIN });
     try {
@@ -76,7 +77,23 @@ const AppProvider = ({ children }) => {
   };
   
   const loginUser = async (currentUser) => {
-    console.log(currentUser)
+    dispatch({ type: LOGIN_USER_BEGIN });
+    try {
+      const {data} = await axios.post('/api/v1/auth/login', currentUser);
+      const { user, token, location } = data;
+      dispatch({
+        type: LOGIN_USER_SUCCESS,
+        payload: { user, token, location },
+      });
+      // local storage
+      addUserToLocalStorage({ user, token, location });
+    } catch (error) {
+      dispatch({
+        type: LOGIN_USER_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+    clearAlert()
   }
   return (
     <AppContext.Provider 
