@@ -11,8 +11,11 @@ import {
   LOGIN_USER_BEGIN,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_ERROR,
+  SETUP_USER_BEGIN,
+  SETUP_USER_SUCCESS,
+  SETUP_USER_ERROR,
   TOGGLE_SIDEBAR,
-  LOGOUT_USER
+  LOGOUT_USER,
 } from './actions';
 
 const token = localStorage.getItem('token');
@@ -76,13 +79,13 @@ const AppProvider = ({ children }) => {
         payload: { msg: error.response.data.msg },
       });
     }
-    clearAlert()
+    clearAlert();
   };
-  
+
   const loginUser = async (currentUser) => {
     dispatch({ type: LOGIN_USER_BEGIN });
     try {
-      const {data} = await axios.post('/api/v1/auth/login', currentUser);
+      const { data } = await axios.post('/api/v1/auth/login', currentUser);
       const { user, token, location } = data;
       dispatch({
         type: LOGIN_USER_SUCCESS,
@@ -96,18 +99,51 @@ const AppProvider = ({ children }) => {
         payload: { msg: error.response.data.msg },
       });
     }
-    clearAlert()
-  }
+    clearAlert();
+  };
+
+  const setupUser = async ({ currentUser, endPoint, alertText }) => {
+    dispatch({ type: SETUP_USER_BEGIN });
+    try {
+      const { data } = await axios.post(
+        `/api/v1/auth/${endPoint}`,
+        currentUser
+      );
+      const { user, token, location } = data;
+      dispatch({
+        type: SETUP_USER_SUCCESS,
+        payload: { user, token, location, alertText },
+      });
+      // local storage
+      addUserToLocalStorage({ user, token, location });
+    } catch (error) {
+      dispatch({
+        type: SETUP_USER_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+    clearAlert();
+  };
+
   const toggleSidebar = () => {
-    dispatch({type:TOGGLE_SIDEBAR})
-  }
+    dispatch({ type: TOGGLE_SIDEBAR });
+  };
   const logoutUser = () => {
-    dispatch({type: LOGOUT_USER})
-    removeUserFromLocalStorage()
-  }
+    dispatch({ type: LOGOUT_USER });
+    removeUserFromLocalStorage();
+  };
   return (
-    <AppContext.Provider 
-    value={{ ...state, displayAlert, registerUser, loginUser, toggleSidebar, logoutUser }}>
+    <AppContext.Provider
+      value={{
+        ...state,
+        displayAlert,
+        registerUser,
+        loginUser,
+        toggleSidebar,
+        logoutUser,
+        setupUser,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );
