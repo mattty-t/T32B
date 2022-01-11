@@ -6,7 +6,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<div>Dashboard</div>} />
+        <Route path="/">
+          <Route path="stats" element={<Stats />} />
+          <Route path="alljobs" element={<AllJobs />} />
+          <Route path="addjob" element={<AddJob />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/landing" element={<Landing />} />
         <Route path="*" element={<Error />} />
@@ -14,5 +19,7 @@ function App() {
     </BrowserRouter>
   );
 }
+
+        
 
 export default App;
