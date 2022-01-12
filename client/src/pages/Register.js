@@ -3,6 +3,7 @@ import { Logo, FormRow, Alert } from '../components';
 import Wrapper from '../assets/wrappers/RegisterPage';
 import { useAppContext } from '../context/appContext';
 import { useNavigate } from 'react-router-dom';
+
 const initialState = {
   name: '',
   email: '',
@@ -16,15 +17,8 @@ const Register = () => {
 
   //global state and useNavigate
 
-  const {
-    user,
-    isLoading,
-    showAlert,
-    displayAlert,
-    registerUser,
-    loginUser,
-    setupUser,
-  } = useAppContext();
+  const { user, isLoading, showAlert, displayAlert, setupUser } =
+    useAppContext();
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
