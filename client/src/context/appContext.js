@@ -67,7 +67,7 @@ const AppProvider = ({ children }) => {
     (error) => {
       console.log(error.response);
       if (error.response.status === 401) {
-        console.log('AUTH ERROR');
+        logoutUser();
       }
       return Promise.reject(error);
     }
@@ -150,10 +150,11 @@ const AppProvider = ({ children }) => {
       // local storage
       addUserToLocalStorage({ user, token, location });
     } catch (error) {
-      dispatch({
-        type: SETUP_USER_ERROR,
-        payload: { msg: error.response.data.msg },
-      });
+      if (error.response.state !== 401)
+        dispatch({
+          type: SETUP_USER_ERROR,
+          payload: { msg: error.response.data.msg },
+        });
     }
     clearAlert();
   };
@@ -177,12 +178,13 @@ const AppProvider = ({ children }) => {
         payload: { user, location, token },
       });
       addUserToLocalStorage({ user, location, token });
-      console.log(data);
     } catch (error) {
-      dispatch({
-        type: UPDATE_USER_ERROR,
-        payload: { msg: error.response.data.msg },
-      });
+      if (error.response.status !== 401) {
+        dispatch({
+          type: UPDATE_USER_ERROR,
+          payload: { msg: error.response.data.msg },
+        });
+      }
     }
     clearAlert();
   };
