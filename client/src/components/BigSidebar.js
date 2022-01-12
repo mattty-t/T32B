@@ -1,11 +1,19 @@
-import Wrapper from '../assets/wrappers/BigSidebar'
+import Wrapper from '../assets/wrappers/BigSidebar';
+import { useAppContext } from '../context/appContext';
+import NavLinks from './NavLinks';
+import Logo from '../components/Logo';
 
 const BigSidebar = () => {
+  const { showSidebar } = useAppContext();
   return (
-    <wrapper>
-      <h4>Big side bar</h4>
-    </wrapper>
-  )
-}
+    <Wrapper>
+      <div
+        className={
+          showSidebar ? 'sidebar-container show-sidebar' : 'sidebar-container'
+        }
+      ></div>
+    </Wrapper>
+  );
+};
 
-export default BigSidebar
+export default BigSidebar;

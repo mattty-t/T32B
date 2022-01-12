@@ -12,23 +12,23 @@ import connectDB from './db/connect.js';
 
 // routers
 import authRouter from './routes/authRoutes.js';
-import jobsRouter from './routes/jobRoutes.js';
+import jobsRouter from './routes/jobsRoutes.js';
 
 //middleware
 import notFoundMiddleware from './middleware/not-found.js';
 import errorHandlerMiddleware from './middleware/error-handler.js';
 
-if(process.env.NODE-ENV !== 'production'){
-  app.use(morgan('dev'))
+if (process.env.NODE_ENV !== 'production') {
+  app.use(morgan('dev'));
 }
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send('Welcome!');
+  res.json({ msg: 'Welcome!' });
 });
 
 app.get('/api/v1', (req, res) => {
-  res.send({ msg: 'API' });
+  res.json({ msg: 'API' });
 });
 
 app.use('/api/v1/auth', authRouter);
