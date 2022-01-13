@@ -3,7 +3,6 @@ const app = express();
 import dotenv from 'dotenv';
 import 'express-async-errors';
 import morgan from 'morgan';
-
 dotenv.config();
 
 // db and authenticateUser
