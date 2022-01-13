@@ -24,6 +24,8 @@ import {
   CREATE_JOB_BEGIN,
   CREATE_JOB_SUCCESS,
   CREATE_JOB_ERROR,
+  GET_JOBS_BEGIN,
+  GET_JOBS_SUCCESS,
 } from './actions';
 
 const token = localStorage.getItem('token');
@@ -46,8 +48,12 @@ const initialState = {
   jobLocation: userLocation || '',
   jobTypeOptions: ['full-time', 'part-time', 'remote', 'internship'],
   jobType: 'full-time',
-  statusOptions:['interview', 'declined', 'pending'],
+  statusOptions: ['interview', 'declined', 'pending'],
   status: 'pending',
+  jobs: [],
+  totalJobs: 0,
+  numOfPages: 1,
+  page: 1,
 };
 
 const AppContext = React.createContext();
@@ -201,42 +207,64 @@ const AppProvider = ({ children }) => {
     }
     clearAlert();
   };
-  
-  const handleChange = ({name, value}) => {
-    dispatch({type:HANDLE_CHANGE,payload: {name, value}})
-  }
+
+  const handleChange = ({ name, value }) => {
+    dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
+  };
   const clearValues = () => {
-    dispatch({type: CLEAR_VALUES})
-  }
+    dispatch({ type: CLEAR_VALUES });
+  };
   const createJob = async () => {
-    dispatch({type: CREATE_JOB_BEGIN })
+    dispatch({ type: CREATE_JOB_BEGIN });
     try {
-      const { position, company, jobLocation, jobType, status } = state
-      await authFetch.post('/jobs', { 
+      const { position, company, jobLocation, jobType, status } = state;
+      await authFetch.post('/jobs', {
         position,
         company,
         jobLocation,
         jobType,
         status,
-      })
-      dispatch({type: CREATE_JOB_SUCCESS })
-      dispatch({type: CLEAR_VALUES })
+      });
+      dispatch({ type: CREATE_JOB_SUCCESS });
+      dispatch({ type: CLEAR_VALUES });
     } catch (error) {
-      if(error.response.status === 401) return 
-      dispatch({ 
-        type:CREATE_JOB_ERROR, 
-        payload:{msg:error.response.data.msg },
-      })
+      if (error.response.status === 401) return;
+      dispatch({
+        type: CREATE_JOB_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
     }
     clearAlert();
-  }
+  };
+
+  const getJobs = async () => {
+    let url = `/jobs`;
+
+    dispatch({ type: GET_JOBS_BEGIN });
+    try {
+      const { data } = await authFetch(url);
+      const { jobs, totalJobs, numOfPages } = data;
+      dispatch({
+        type: GET_JOBS_SUCCESS,
+        payload: {
+          jobs,
+          totalJobs,
+          numOfPages,
+        },
+      });
+    } catch (error) {
+      logoutUser();
+    }
+    clearAlert();
+  };
+
   return (
     <AppContext.Provider
       value={{
         ...state,
         displayAlert,
         // registerUser,
-        // loginUser,
+        loginUser,
         toggleSidebar,
         logoutUser,
         setupUser,
