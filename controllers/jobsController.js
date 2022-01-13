@@ -3,8 +3,10 @@ import { StatusCodes } from 'http-status-codes';
 import {
   BadRequestError,
   NotFoundError,
-  unAuthenticatedError,
+  UnAuthenticatedError,
 } from '../errors/index.js';
+
+import checkPermissions from '../utils/checkPermissions.js';
 
 const createJob = async (req, res) => {
   const { position, company } = req.body;
@@ -26,6 +28,7 @@ const getAllJobs = async (req, res) => {
 const updateJob = async (req, res) => {
   const { id: jobId } = req.params;
   const { company, position } = req.body;
+
   if (!position || !company) {
     throw new BadRequestError('Please provide all values');
   }
@@ -36,6 +39,8 @@ const updateJob = async (req, res) => {
   }
 
   // check permissions
+
+  checkPermissions(req.user, job.createdBy);
 
   const updatedJob = await Job.findOneAndUpdate({ _id: jobId }, req.body, {
     new: true,
@@ -48,9 +53,9 @@ const deleteJob = async (req, res) => {
   res.send('Delete Job ');
 };
 
-const updateJob = async (req, res) => {
-  res.send('Update Job');
-};
+// const updateJob = async (req, res) => {
+//   res.send('Update Job');
+// };
 
 const showStats = async (req, res) => {
   res.send('Show Stats ');
