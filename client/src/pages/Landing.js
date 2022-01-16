@@ -14,7 +14,10 @@ const Landing = () => {
           <h1>
             job <span>tracking</span> app
           </h1>
-          <p>Hello world</p>
+          <p>
+            Welcome to the best application where you can track your Job
+            applications for free!
+          </p>
           <Link to="/register" className="btn btn-hero">
             Login/Register
           </Link>
