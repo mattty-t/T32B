@@ -7,7 +7,9 @@
 
 **Project Management and Task Delegation Methodology**
 
-Discord was the main point of communication throughout this project. We did a daily stand up with each other to keep track of what challenges we were facing and the progress of the project. We also used discord to keep us accountable for spending time on the assessment and we would schedule a voice and code. If we ran into issues or problems, we could help each other via screen share. We utilised Trello and a Kanban board throughout Part B of this assessment to keep track of what stage we were on and to keep each other accountable to make sure that the tasks were completed. We also used it to delegate the tasks that each of us had. Job had the role of doing mainly the server side and I looked after the front end. We also helped each other despite our tasks being different so that we could do a good job and there were times where one of us were able to fix the problem despite working on different parts of the application. This helped us work better and complete the project. 
+Discord was the main point of communication throughout this project. We did a daily stand up with each other to keep track of what challenges we were facing and the progress of the project. We also used discord to keep us accountable for spending time on the assessment through scheduling a voice and coding together. If we ran into issues or problems, we could help each other via screen share. 
+
+We utilised Trello and Kanban throughout Part B of this assessment to keep track of what stage we were on and to keep each other accountable to make sure that the tasks were completed. We also used it to delegate the tasks that each of us had. Job had the role of doing mainly the server side and I looked after the front end. We also helped each other despite our tasks being different so that we could do a good job and there were times where one of us was able to fix the problem despite working on different parts of the application. This helped us work better to complete the project. 
 
 Below is the progress of our application and the Trello Board can be found in the link below:
 
