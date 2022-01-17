@@ -11,7 +11,7 @@ Discord was the main point of communication throughout this project. We did a da
 
 Below is the progress of our application and the Trello Board can be found in the link below:
 
-**Trello Board:** https://trello.com/b/q6LJArRy/t3-mern-full-stack-application
+**Trello Board:** [Trello](https://trello.com/b/q6LJArRy/t3-mern-full-stack-application)
 
 
 <img src="./img/day1.png">
@@ -31,13 +31,13 @@ Below is the progress of our application and the Trello Board can be found in th
 
 ---
 
-**Website:** https://jobtracking-app.herokuapp.com/
+**Website:** [JobTracker](https://jobtracking-app.herokuapp.com/)
 
 ### **R11 - A link to your GitHub repository (repo)**
 
 ---
 
-**Github repo:** https://github.com/mattty-t/T32B
+**Github repo:** [Github Repo](https://github.com/mattty-t/T32B)
 
 
 ---
